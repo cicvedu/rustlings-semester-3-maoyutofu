@@ -30,7 +30,9 @@ impl SomeTrait for OtherStruct {}
 impl OtherTrait for OtherStruct {}
 
 // YOU MAY ONLY CHANGE THE NEXT LINE
-fn some_func(item: ??) -> bool {
+// fn some_func(item: impl SomeTrait + OtherTrait) -> bool {
+// another
+fn some_func<T: SomeTrait + OtherTrait>(item: T) -> bool {
     item.some_function() && item.other_function()
 }
 
