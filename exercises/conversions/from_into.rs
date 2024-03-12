@@ -44,6 +44,22 @@ impl Default for Person {
 
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s == "" || s.find(",").is_none() {
+            return Person::default();
+        }
+        if s.starts_with(",") || s.ends_with(",") {
+            return Person::default();
+        }
+        let arr = s.split(",").collect::<Vec<&str>>();
+        if arr.len() > 2 {
+            return Person::default();
+        }
+        let name = arr[0].trim().to_string();
+        let age = arr[1].trim().parse::<usize>();
+        match age {
+            Ok(age) => Person { name, age },
+            Err(_) => Person::default(),
+        }
     }
 }
 
